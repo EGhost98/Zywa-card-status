@@ -4,6 +4,8 @@ from .models import CardStatus
 from datetime import datetime
 from django.utils import timezone
 import re
+from dateutil import parser
+import pytz
 
 @shared_task
 def delivered_csv_updated(file):
@@ -14,17 +16,15 @@ def delivered_csv_updated(file):
             user_mobile = row['User contact']
             user_mobile = re.sub(r'\D', '', user_mobile)
             user_mobile = user_mobile[-9:]
-            timestamp = datetime.strptime(row['Timestamp'], '%Y-%m-%dT%H:%M:%SZ')
+            timestamp = parser.parse(row['Timestamp']).replace(tzinfo=pytz.utc)
             status = row['Comment']
             card_status = CardStatus.objects.filter(card_id=card_id, user_mobile=user_mobile).first()
             if card_status:
-                timestamp = timezone.make_aware(timestamp, card_status.timestamp.tzinfo)
                 if card_status.timestamp < timestamp:
                     card_status.status = status
                     card_status.timestamp = timestamp
                     card_status.save()
             else:
-                timestamp = timezone.make_aware(timestamp, timezone.get_current_timezone())
                 CardStatus.objects.create(card_id=card_id, user_mobile=user_mobile, timestamp=timestamp, status=status)
 
 
@@ -38,17 +38,15 @@ def delivery_exceptions_csv_updated(file):
             user_mobile = row['User contact']
             user_mobile = re.sub(r'\D', '', user_mobile)
             user_mobile = user_mobile[-9:]
-            timestamp = datetime.strptime(row['Timestamp'], '%d-%m-%Y %H:%M')
+            timestamp = parser.parse(row['Timestamp']).replace(tzinfo=pytz.utc)
             status = row['Comment']
             card_status = CardStatus.objects.filter(card_id=card_id, user_mobile=user_mobile).first()
             if card_status:
-                timestamp = timezone.make_aware(timestamp, card_status.timestamp.tzinfo)
                 if card_status.timestamp < timestamp:
                     card_status.status = status
                     card_status.timestamp = timestamp
                     card_status.save()
             else:
-                timestamp = timezone.make_aware(timestamp, timezone.get_current_timezone())
                 CardStatus.objects.create(card_id=card_id, user_mobile=user_mobile, timestamp=timestamp, status=status)
 
 
@@ -63,17 +61,15 @@ def pickup_csv_updated(file):
             user_mobile = row['User Mobile']
             user_mobile = re.sub(r'\D', '', user_mobile)
             user_mobile = user_mobile[-9:]
-            timestamp = datetime.strptime(row['Timestamp'], '%d-%m-%Y %I:%M %p')
+            timestamp = parser.parse(row['Timestamp']).replace(tzinfo=pytz.utc)
             status = "Picked Up"
             card_status = CardStatus.objects.filter(card_id=card_id, user_mobile=user_mobile).first()
             if card_status:
-                timestamp = timezone.make_aware(timestamp, card_status.timestamp.tzinfo)
                 if card_status.timestamp < timestamp:
                     card_status.status = status
                     card_status.timestamp = timestamp
                     card_status.save()
             else:
-                timestamp = timezone.make_aware(timestamp, timezone.get_current_timezone())
                 CardStatus.objects.create(card_id=card_id, user_mobile=user_mobile, timestamp=timestamp, status=status)
 
 
@@ -87,16 +83,14 @@ def returned_csv_updated(file):
             user_mobile = row['User contact']
             user_mobile = re.sub(r'\D', '', user_mobile)
             user_mobile = user_mobile[-9:]
-            timestamp = datetime.strptime(row['Timestamp'], '%d-%m-%Y %I:%M%p')
+            timestamp = parser.parse(row['Timestamp']).replace(tzinfo=pytz.utc)
             status = "Returned"
             card_status = CardStatus.objects.filter(card_id=card_id, user_mobile=user_mobile).first()
             if card_status:
-                timestamp = timezone.make_aware(timestamp, card_status.timestamp.tzinfo)
                 if card_status.timestamp < timestamp:
                     card_status.status = status
                     card_status.timestamp = timestamp
                     card_status.save()
             else:
-                timestamp = timezone.make_aware(timestamp, timezone.get_current_timezone())
                 CardStatus.objects.create(card_id=card_id, user_mobile=user_mobile, timestamp=timestamp, status=status)
 

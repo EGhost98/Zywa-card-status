@@ -6,7 +6,7 @@ from .models import CardStatus
 from rest_framework import status
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-
+from django.db.models import Count
 
 @swagger_auto_schema(
     method='GET',
@@ -37,6 +37,7 @@ def get_card_status(request):
         card_status_queryset = card_status_queryset.filter(card_id=card_id)
     if user_mobile:
         card_status_queryset = card_status_queryset.filter(user_mobile=user_mobile)
+    
 
     serializer = CardStatusSerializer(card_status_queryset, many=True)
     return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
@@ -44,10 +45,10 @@ def get_card_status(request):
 
 
 csv_files = {
-    "pickup": "card_status\\card-data\\Sample Card Status Info - Pickup.csv",
-    "delivery_exceptions": "card_status\\card-data\\Sample Card Status Info - Delivery exceptions.csv",
-    "delivered": "card_status\\card-data\\Sample Card Status Info - Delivered.csv",
-    "returned": "card_status\\card-data\\Sample Card Status Info - Returned.csv"
+    "pickup": "card_status/card-data/Sample Card Status Info - Pickup.csv",
+    "delivery_exceptions": "card_status/card-data/Sample Card Status Info - Delivery exceptions.csv",
+    "delivered": "card_status/card-data/Sample Card Status Info - Delivered.csv",
+    "returned": "card_status/card-data/Sample Card Status Info - Returned.csv"
 }
 
 

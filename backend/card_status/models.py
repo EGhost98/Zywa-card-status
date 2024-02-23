@@ -2,7 +2,7 @@ from django.db import models
 
 class CardStatus(models.Model):
     card_id = models.CharField(max_length=255, unique=True)
-    user_mobile = models.CharField(max_length=255, unique=True)
+    user_mobile = models.CharField(max_length=255,)
     timestamp = models.DateTimeField(null=True)
     status = models.CharField(max_length=255)
 

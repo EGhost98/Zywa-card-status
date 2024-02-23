@@ -2,10 +2,10 @@ from django.core.management.base import BaseCommand
 from card_status import tasks
 
 csv_files = {
-    "pickup": "card_status\\card-data\\Sample Card Status Info - Pickup.csv",
-    "delivery_exceptions": "card_status\\card-data\\Sample Card Status Info - Delivery exceptions.csv",
-    "delivered": "card_status\\card-data\\Sample Card Status Info - Delivered.csv",
-    "returned": "card_status\\card-data\\Sample Card Status Info - Returned.csv"
+    "pickup": "card_status/card-data/Sample Card Status Info - Pickup.csv",
+    "delivery_exceptions": "card_status/card-data/Sample Card Status Info - Delivery exceptions.csv",
+    "delivered": "card_status/card-data/Sample Card Status Info - Delivered.csv",
+    "returned": "card_status/card-data/Sample Card Status Info - Returned.csv"
 }
 
 class Command(BaseCommand):
