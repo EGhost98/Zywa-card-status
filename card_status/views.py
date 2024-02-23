@@ -14,6 +14,7 @@ from drf_yasg.utils import swagger_auto_schema
         openapi.Parameter('card_id', openapi.IN_QUERY, description="Card ID", type=openapi.TYPE_STRING),
         openapi.Parameter('user_mobile', openapi.IN_QUERY, description="User Mobile", type=openapi.TYPE_STRING),
     ],
+    operation_summary="Get Card Status by Card ID or User Mobile",
     responses={
         200: openapi.Response(description="Success", schema=CardStatusSerializer(many=True)),
         400: openapi.Response(description="Bad Request", schema=openapi.Schema(type=openapi.TYPE_OBJECT, properties={
@@ -52,6 +53,7 @@ csv_files = {
 
 @swagger_auto_schema(
     method='POST',
+    operation_summary="Update Card Status Data From Delivered CSV Source using Celery Worker",
     responses={
         202: openapi.Response(description="Accepted", schema=openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'status': openapi.Schema(type=openapi.TYPE_STRING),
@@ -64,8 +66,11 @@ def refresh_delivered(request):
     tasks.delivered_csv_updated.delay(csv_files['delivered'])
     return Response({"status": "success", "message": "Updating Delivered Data."}, status=status.HTTP_202_ACCEPTED)
 
+
+
 @swagger_auto_schema(
     method='POST',
+    operation_summary="Update Card Status Data From Delivery Exceptions CSV Source using Celery Worker",
     responses={
         202: openapi.Response(description="Accepted", schema=openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'status': openapi.Schema(type=openapi.TYPE_STRING),
@@ -78,8 +83,11 @@ def refresh_delivery_exceptions(request):
     tasks.delivery_exceptions_csv_updated.delay(csv_files['delivery_exceptions'])
     return Response({"status": "success", "message": "Updating Delivery Exceptions Data."}, status=status.HTTP_202_ACCEPTED)
 
+
+
 @swagger_auto_schema(
     method='POST',
+    operation_summary="Update Card Status Data From Pickup CSV Source using Celery  Worker",
     responses={
         202: openapi.Response(description="Accepted", schema=openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'status': openapi.Schema(type=openapi.TYPE_STRING),
@@ -92,8 +100,11 @@ def refresh_pickup(request):
     tasks.pickup_csv_updated.delay(csv_files['pickup'])
     return Response({"status": "success", "message": "Updating pickup Data."}, status=status.HTTP_202_ACCEPTED)
 
+
+
 @swagger_auto_schema(
     method='POST',
+    operation_summary="Update Card Status Data From Retuned CSV Source using Celery Worker",
     responses={
         202: openapi.Response(description="Accepted", schema=openapi.Schema(type=openapi.TYPE_OBJECT, properties={
             'status': openapi.Schema(type=openapi.TYPE_STRING),

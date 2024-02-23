@@ -24,6 +24,7 @@ def delivered_csv_updated(file):
                     card_status.timestamp = timestamp
                     card_status.save()
             else:
+                timestamp = timezone.make_aware(timestamp, timezone.get_current_timezone())
                 CardStatus.objects.create(card_id=card_id, user_mobile=user_mobile, timestamp=timestamp, status=status)
 
 
@@ -47,6 +48,7 @@ def delivery_exceptions_csv_updated(file):
                     card_status.timestamp = timestamp
                     card_status.save()
             else:
+                timestamp = timezone.make_aware(timestamp, timezone.get_current_timezone())
                 CardStatus.objects.create(card_id=card_id, user_mobile=user_mobile, timestamp=timestamp, status=status)
 
 
@@ -71,6 +73,7 @@ def pickup_csv_updated(file):
                     card_status.timestamp = timestamp
                     card_status.save()
             else:
+                timestamp = timezone.make_aware(timestamp, timezone.get_current_timezone())
                 CardStatus.objects.create(card_id=card_id, user_mobile=user_mobile, timestamp=timestamp, status=status)
 
 
@@ -94,5 +97,6 @@ def returned_csv_updated(file):
                     card_status.timestamp = timestamp
                     card_status.save()
             else:
+                timestamp = timezone.make_aware(timestamp, timezone.get_current_timezone())
                 CardStatus.objects.create(card_id=card_id, user_mobile=user_mobile, timestamp=timestamp, status=status)
 
