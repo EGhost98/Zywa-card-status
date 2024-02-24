@@ -14,9 +14,9 @@ done
 
 python manage.py collectstatic --noinput
 
-python manage.py merge_data
+# python manage.py merge_data // for merging data from csv to db 
 
-DJANGO_SUPERUSER_PASSWORD=admin python manage.py createsuperuser --username=admin --email=admin@example.com --noinput --password=DJNAGO_SUPERUSER_PASSWORD
+DJANGO_SUPERUSER_PASSWORD=admin python manage.py createsuperuser --username=admin --email=admin@example.com --noinput
 
 gunicorn core.wsgi --bind 0.0.0.0:8000 --workers 4 --threads 4
 

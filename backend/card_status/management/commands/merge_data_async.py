@@ -17,4 +17,4 @@ class Command(BaseCommand):
         tasks.delivery_exceptions_csv_updated(csv_files['delivery_exceptions']).delay()
         tasks.returned_csv_updated(csv_files['returned']).delay()
         
-        self.stdout.write(self.style.SUCCESS('Data Merged Successfully'))
+        self.stdout.write(self.style.SUCCESS('Data Ingestion Started'))
