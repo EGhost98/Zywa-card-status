@@ -12,9 +12,9 @@ class Command(BaseCommand):
     help = 'Populate the database with data from CSV files'
 
     def handle(self, *args, **kwargs):
-        tasks.pickup_csv_updated(csv_files['pickup'])
+        tasks.returned_csv_updated(csv_files['returned'])
         tasks.delivered_csv_updated(csv_files['delivered'])
         tasks.delivery_exceptions_csv_updated(csv_files['delivery_exceptions'])
-        tasks.returned_csv_updated(csv_files['returned'])
+        tasks.pickup_csv_updated(csv_files['pickup'])
         
         self.stdout.write(self.style.SUCCESS('Data Merged Successfully'))
