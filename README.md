@@ -2,6 +2,8 @@
 
 This project aims to provide a solution for updating the status of cards based on data from CSV files provided by partner companies. The system tracks the status of cards from pickup to delivery, including any exceptions and returns. The project is implemented using Django for the backend, Celery for task management and background process, and Django REST framework for API development.
 
+![image](https://github.com/EGhost98/Zywa-card-status/assets/76267623/7fcac6ca-aa1f-4ab6-b11d-19f7b3f60ada)
+
 
 ## Table of Contents 
 
