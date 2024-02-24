@@ -163,7 +163,7 @@ project/
 
 #### Get Card Status
 
-```http
+```bash
   GET /get-card-status/
 ```
 
@@ -192,6 +192,6 @@ project/
 
 #### Update Returned Data
 ```bash
-  `POST refresh/returned`
+  POST refresh/returned
 ```
 - **Description:** Update card status data from Returned CSV source using Celery Worker.
