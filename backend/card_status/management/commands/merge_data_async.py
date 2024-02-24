@@ -12,9 +12,9 @@ class Command(BaseCommand):
     help = 'Populate the database with data from CSV files using Celery Worker' 
 
     def handle(self, *args, **kwargs):
-        tasks.pickup_csv_updated(csv_files['pickup']).delay()
-        tasks.delivered_csv_updated(csv_files['delivered']).delay()
-        tasks.delivery_exceptions_csv_updated(csv_files['delivery_exceptions']).delay()
-        tasks.returned_csv_updated(csv_files['returned']).delay()
+        tasks.pickup_csv_updated.delay(csv_files['pickup'])
+        tasks.delivered_csv_updated.delay(csv_files['delivered'])
+        tasks.delivery_exceptions_csv_updated.delay(csv_files['delivery_exceptions'])
+        tasks.returned_csv_updated.delay(csv_files['returned'])
         
         self.stdout.write(self.style.SUCCESS('Data Ingestion Started'))

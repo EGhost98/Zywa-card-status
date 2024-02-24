@@ -51,6 +51,7 @@ services:
         depends_on:
             - server
             - redis
+            - db
     redis:
         restart: unless-stopped
         image: redis:7.2.4-alpine 

@@ -6,4 +6,4 @@ do
 done
 
 # run a worker :)
-celery -A core worker --pool=solo -l info -c 4
+celery -A core worker --pool=solo -l info -c 4 
